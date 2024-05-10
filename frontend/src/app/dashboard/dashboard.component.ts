@@ -1,12 +1,7 @@
 import { Component, OnInit, Injectable, OnDestroy } from '@angular/core';
-import { BehaviorSubject, Subscription } from 'rxjs';
 import { AuthService } from '../auth/auth.service';
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { MatCardModule } from '@angular/material/card';
 import { User } from '../auth/auth.model';
-import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router';
-import { Subject } from 'rxjs';
 
 
 @Component({
