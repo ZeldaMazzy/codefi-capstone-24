@@ -12,6 +12,7 @@ app.use(express.json());
 const authenticationMiddleware = require("./middleware/auth.middleware");
 
 //route
+app.use("/api/v1/accounts", require("./routers/account.router"))
 app.use("/api/v1", require("./routers/auth.router"))
 
 //listen
