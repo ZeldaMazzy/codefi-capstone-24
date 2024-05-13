@@ -8,7 +8,7 @@ const getAccounts = async (req, res) => {
         res.status(200).json({ success: true, data: allAccounts })
     }
     catch (err) {
-        res.status(400).send("Accounts Not Found")
+        res.status(400).json({ success: false, msg: "Accounts Not Found" })
     }
 };
 
@@ -21,7 +21,6 @@ const getAccountById = async (req, res) => {
     catch (err) {
         res.status(400).json({ success: false, msg: "Account Not Found" })
     }
-
 }
 
 const updateAccount = async (req, res) => {
@@ -38,7 +37,7 @@ const updateAccount = async (req, res) => {
         res.status(201).json({ success: true, msg: "Account Updated", data: account })
     }
 
-    catch (e) {
+    catch (err) {
         res.status(400).json({ success: false, msg: "Account not Updated" })
     }
 }
@@ -56,7 +55,7 @@ const addAccount = async (req, res) => {
 const deleteAccount = async (req, res) => {
     try {
         const accountToDelete = req.params.id;
-        await Task.findOneAndDelete(
+        await Account.findOneAndDelete(
             { _id: accountToDelete }
         );
         res.status(204).json({ success: true, msg: "Account Deleted" })
