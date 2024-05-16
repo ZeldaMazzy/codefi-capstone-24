@@ -2,9 +2,6 @@
 const User = require("../models/user.model")
 const mongoose = require('mongoose')
 
-/* Tmiddleware ref class 8 note
-Test all of your routes in Postman! */
-
 const login = async (req, res) => {
     const { email, password } = req.body;
     try {
