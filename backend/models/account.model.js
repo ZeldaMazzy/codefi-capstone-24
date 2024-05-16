@@ -37,10 +37,4 @@ accountSchema.methods.calculateBalance = async function () {
     this.accountBalance = sum;
 }
 
-// userSchema.methods.comparePassword = async function (incomingPassword) {
-//     const isMatch = await bcrypt.compare(incomingPassword, this.password);
-//     return isMatch;
-// };
-
 module.exports = mongoose.model('Account', accountSchema);
-//https://medium.com/@brandon.lau86/one-to-many-relationships-with-mongodb-and-mongoose-in-node-express-d5c9d23d93c2
