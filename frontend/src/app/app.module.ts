@@ -8,13 +8,15 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatCardModule } from '@angular/material/card';
 import { AccountsComponent } from './accounts/accounts.component';
+import { TransactionComponent } from './transaction/transaction.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     DashboardComponent,
     NavbarComponent,
-    AccountsComponent
+    AccountsComponent,
+    TransactionComponent
   ],
   imports: [
     BrowserModule,
