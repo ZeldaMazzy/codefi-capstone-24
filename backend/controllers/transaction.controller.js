@@ -2,16 +2,10 @@ const Transaction = require('../models/transaction.model')
 const mongoose = require('mongoose');
 const { getAccountById } = require('./account.controller');
 
-// getTransactions [add a query string that lets users filter transactions by account]
-// getTransactionById
-// updateTransaction
-// addTransaction
-// deleteTransaction
-
 const getTransactions = async (req, res) => {
     try {
         const accountQuery = req.query.account;
-        const allTransactions = await Transaction.find({ "account": { _id: accountQuery } })
+        const allTransactions = await Transaction.find({ "account": { _id: accountQuery }, "user": { _id: req.userId } })
         res.status(200).json({ success: true, data: allTransactions })
     }
     catch (err) {
@@ -22,7 +16,7 @@ const getTransactions = async (req, res) => {
 const getTransactionById = async (req, res) => {
     try {
         const transactionId = req.params.id;
-        const account = await Transaction.findOne({ _id: transactionId })
+        const account = await Transaction.findOne({ _id: transactionId, "user": { _id: req.userId } })
         res.status(200).json({ success: true, data: account })
     }
     catch (err) {
@@ -34,7 +28,7 @@ const updateTransaction = async (req, res) => {
     try {
         const transactionToUpdate = req.params.id;
         const transaction = await Transaction.findOneAndUpdate(
-            { _id: transactionToUpdate },
+            { _id: transactionToUpdate, "user": { _id: req.userId } },
             req.body,
             {
                 new: true,
@@ -50,7 +44,11 @@ const updateTransaction = async (req, res) => {
 
 const addTransaction = async (req, res) => {
     try {
-        newTransaction = await Transaction.create(req.body)
+        const payload = {
+            ...req.body,
+            user: req.userId
+        }
+        newTransaction = await Transaction.create(payload)
         res.status(201).json({ success: true, msg: "Transaction Created", transaction: newTransaction })
     }
     catch (err) {
@@ -62,7 +60,7 @@ const deleteTransaction = async (req, res) => {
     try {
         const transactionToDelete = req.params.id;
         await Transaction.findOneAndDelete(
-            { _id: transactionToDelete }
+            { _id: transactionToDelete, "user": { _id: req.userId } }
         );
         res.status(204).json({ success: true, msg: "Transaction Deleted" })
     }
