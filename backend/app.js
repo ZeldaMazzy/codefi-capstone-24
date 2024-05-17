@@ -14,7 +14,7 @@ const authenticationMiddleware = require("./middleware/auth.middleware");
 //route
 app.use("/api/v1/accounts", authenticationMiddleware, require("./routers/account.router"))
 app.use("/api/v1/transactions", authenticationMiddleware, require("./routers/transaction.router"))
-app.use("/api/v1", authenticationMiddleware, require("./routers/auth.router"))
+app.use("/api/v1", require("./routers/auth.router"))
 
 //listen
 
