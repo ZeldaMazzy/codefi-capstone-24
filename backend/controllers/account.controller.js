@@ -6,19 +6,23 @@ const getAccounts = async (req, res) => {
         const allAccounts = await Account.find({ user: req.userId })
         res.status(200).json({ success: true, data: allAccounts })
     }
-    catch (err) {
-        res.status(400).json({ success: false, msg: "Accounts Not Found" })
+    catch (e) {
+        res.status(400).json({ success: false, msg: "Accounts Not Found: " + e.message })
     }
 };
 
 const getAccountById = async (req, res) => {
     try {
         const accountId = req.params.id;
-        const account = await Account.findOne({ _id: accountId, "user": { _id: req.userId } })
+        const account = await Account.findOne({ _id: accountId, "user": { _id: req.userId } }).populate('transactions')
+        if (account == null) {
+            throw new Error("No Account")
+        }
+        await account.calculateBalance()
         res.status(200).json({ success: true, data: account })
     }
-    catch (err) {
-        res.status(400).json({ success: false, msg: "Account Not Found" })
+    catch (e) {
+        res.status(400).json({ success: false, msg: "Account Not Found:" + e.message })
     }
 }
 
@@ -36,8 +40,8 @@ const updateAccount = async (req, res) => {
         res.status(201).json({ success: true, msg: "Account Updated", data: account })
     }
 
-    catch (err) {
-        res.status(400).json({ success: false, msg: "Account not Updated" })
+    catch (e) {
+        res.status(400).json({ success: false, msg: "Account not Updated: " + e.message })
     }
 }
 
@@ -51,7 +55,7 @@ const addAccount = async (req, res) => {
         res.status(201).json({ success: true, msg: "Account Created", account: newAccount })
     }
     catch (e) {
-        res.status(400).json({ success: false, msg: "Account cannot be created" })
+        res.status(400).json({ success: false, msg: "Account cannot be created: " + e.message })
     }
 }
 
@@ -61,12 +65,12 @@ const deleteAccount = async (req, res) => {
         await Account.findOneAndDelete(
             { _id: accountToDelete, "user": { _id: req.userId } }
         );
-        res.status(204).json({ success: true, msg: "Account Deleted" })
+        res.status(204).send()
     }
 
 
     catch (e) {
-        res.status(400).json({ success: false, msg: "Account not Deleted" })
+        res.status(400).json({ success: false, msg: "Account not Deleted:" + e.message })
     }
 }
 

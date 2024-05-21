@@ -18,12 +18,12 @@ const login = async (req, res) => {
 
         const funToken = user.createToken();
         const payload = { firstName: user.firstName, lastName: user.lastName, email: user.email, token: funToken }
-        res.status(200).json({ message: "Successfully logged in", return: payload })
+        res.status(200).json({ success: true, msg: "Successfully logged in", return: payload })
     }
 
     catch (e) {
 
-        res.status(401).send("Login Fail")
+        res.status(401).json({ success: false, msg: "Login Fail: " + e.message })
     }
 };
 
@@ -31,10 +31,10 @@ const register = async (req, res) => {
     const { firstName, lastName, email, password } = req.body;
     try {
         const user = await User.create({ firstName: firstName, lastName: lastName, email: email, password: password })
-        res.status(201).json({ message: "User Created" })
+        res.status(201).json({ msg: "User Created" })
     }
     catch (e) {
-        res.status(401).send("Registration Failed")
+        res.status(401).json({ msg: "Registration Failed: " + e.message })
     }
 }
 

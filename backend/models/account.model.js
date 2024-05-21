@@ -5,25 +5,30 @@ const Transaction = require('./transaction.model')
 const accountSchema = new mongoose.Schema({
     accountNumber: {
         type: String,
-        require: [true, 'Account Number Require'],
+        required: [true, 'Account Number Require'],
         minlength: [10, 'Account Number must be 10 digits'],
         maxlenth: [10, 'Account Number must be 10 digits']
     },
     routingNumber: {
         type: String,
-        require: [true, 'Routing Number is require'],
+        required: [true, 'Routing Number is require'],
         minlength: [8, 'Routing Number must be 8 digits'],
         maxlenth: [8, 'Routing Number must be 8 digits']
     },
     accountBalance: {
         type: Number,
-        require: [true, 'Balance is required']
+        required: [true, 'Balance is required']
     },
     user: {
         type: Schema.Types.ObjectId,
         ref: "User",
-        require: true
-    }
+        required: true
+    },
+    transactions: [{
+        type: Schema.Types.ObjectId,
+        ref: "Transaction",
+        required: true
+    }]
 })
 
 accountSchema.methods.calculateBalance = async function () {
@@ -36,5 +41,7 @@ accountSchema.methods.calculateBalance = async function () {
 
     this.accountBalance = sum;
 }
+
+
 
 module.exports = mongoose.model('Account', accountSchema);
