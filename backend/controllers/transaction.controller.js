@@ -4,7 +4,7 @@ const { getAccountById } = require('./account.controller');
 
 const getTransactions = async (req, res) => {
     try {
-        const accountQuery = req.query.account;
+        const accountQuery = req.query.account.replace('/', '');
         const allTransactions = await Transaction.find({ "account": { _id: accountQuery }, "user": { _id: req.userId } })
         res.status(200).json({ success: true, data: allTransactions })
     }
@@ -17,6 +17,7 @@ const getTransactionById = async (req, res) => {
     try {
         const transactionId = req.params.id;
         const account = await Transaction.findOne({ _id: transactionId, "user": { _id: req.userId } })
+        if (account == null) { res.status(404).json({ success: false, msg: "Transaction Not Found" }) }
         res.status(200).json({ success: true, data: account })
     }
     catch (err) {
@@ -35,6 +36,7 @@ const updateTransaction = async (req, res) => {
                 runValidators: true
             }
         )
+        if (account == null) { res.status(404).json({ success: false, msg: "Transaction Not Updated" }) }
         res.status(201).json({ success: true, msg: "Transaction Updated", data: transaction })
     }
     catch (err) {
