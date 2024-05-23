@@ -2,6 +2,7 @@ import { Component, OnInit, Injectable, OnDestroy } from '@angular/core';
 import { AuthService } from '../auth/auth.service';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { User } from '../auth/auth.model';
+import { AccountsService } from '../accounts/accounts.service';
 
 
 @Component({
@@ -55,9 +56,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.userSub = this.dashService.getUserDataListener()
       .subscribe((
         userData: {
-           name: string,
-           surname: string, 
-           clientNumber: number,  
+           firstName: string,
+           lastNname: string, 
+           accountNumber: number,  
            balance: number, 
            transactions: {trans: [] }, 
           }) => 

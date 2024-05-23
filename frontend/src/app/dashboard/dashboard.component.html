@@ -1,14 +1,13 @@
 <mat-card-title-group>
       <mat-card-title class="avatar-title">Hello, {{user?.firstName}}</mat-card-title>
       <mat-card-subtitle class="avatar-title">
-        <button mat-raised-button class="contact-btn">Contact support</button>
+        <button mat-raised-button class="login-btn">Login</button>
+        <button mat-raised-button class="register-btn">Register</button>
       </mat-card-subtitle>
-      <img mat-card-avatar mat-card-sm-image class="avatar" src="http://localhost:3000/repository/images/support-f.png"
-        alt="Support avatar">
     </mat-card-title-group>
     <mat-card-content class="mat-body-1 info-text flex">You are signed in as: <br> {{user?.firstName}} {{user?.lastName}}
     </mat-card-content>
-    <!-- <mat-card-content class="mat-body-1 info-text flex">Your client number: <br> 000000000{{user.clientNumber}} -->
+    <!-- <mat-card-content class="mat-body-1 info-text flex">Your account number: <br> 000000000{{user.accountNumber}} -->
     <!-- </mat-card-content> -->
     <br><br><br>
   
@@ -18,7 +17,7 @@
           <mat-icon class="icon">swap_horiz</mat-icon>
         </div>
         <mat-card-title>Recent Transactions</mat-card-title>
-        <mat-card-subtitle>account number: {{13690000 + user.clientNumber}}</mat-card-subtitle>
+        <mat-card-subtitle>account number: {{13690000 + user.accountNumber}}</mat-card-subtitle>
         <mat-menu #appMenu1="matMenu">
           <button mat-menu-item>Settings</button>
           <button mat-menu-item routerLink="/help">Help</button>
@@ -92,7 +91,7 @@
           <mat-icon class="icon">monetization_on</mat-icon>
         </div>
         <mat-card-title>Available balance</mat-card-title>
-        <mat-card-subtitle>account number: {{13690000 + user.clientNumber}}</mat-card-subtitle>
+        <mat-card-subtitle>account number: {{13690000 + user.accountNumber}}</mat-card-subtitle>
         <mat-menu #appMenu2="matMenu">
           <button mat-menu-item>Settings</button>
           <button mat-menu-item routerLink="/help">Help</button>
@@ -105,9 +104,6 @@
         <p class="current-balance">
           {{user.balance}}<span class="currency">,00 USD</span>
         </p>
-        <p class="limit-bar-text">Used limit: {{user.usedLimit}}/{{user.limitMonthly}} USD</p>
-        <mat-progress-bar class="limit-bar" mode="determinate" value="{{100*(user.usedLimit / user.limitMonthly)}}">
-        </mat-progress-bar>
       </mat-card-content>
       <mat-card-actions class="current-balance-btn">
       </mat-card-actions>
