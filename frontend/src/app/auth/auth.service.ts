@@ -8,7 +8,8 @@ import { jwtDecode } from 'jwt-decode';
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   private token: string = "";
-  public User: BehaviorSubject<User | null > = new BehaviorSubject<User | null >(null);
+  private readonly testuser: User = { firstName: 'Test', lastName: 'User', email: '', token: '' };
+  public User: BehaviorSubject<User | null > = new BehaviorSubject<User | null >(this.testuser);
 
   constructor(private http: HttpClient, private router: Router) { 
     const token = localStorage.getItem('token');

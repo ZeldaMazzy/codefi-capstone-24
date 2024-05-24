@@ -14,8 +14,9 @@ import { AuthInterceptor } from './auth/auth-interceptor';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
-import { FormsModule } from '@angular/forms';=
-import { TransactionComponent } from './transaction/transaction.component';
+import { FormsModule } from '@angular/forms';
+import {MatTableModule} from '@angular/material/table';
+import { ViewAccountComponent } from './accounts/view-account/view-account.component';
 
 @NgModule({
   declarations: [
@@ -24,8 +25,8 @@ import { TransactionComponent } from './transaction/transaction.component';
     NavbarComponent,
     AccountsComponent,
     LoginComponent,
-    RegisterComponent
-    TransactionComponent
+    RegisterComponent,
+    ViewAccountComponent
   ],
   imports: [
     BrowserModule,
@@ -36,7 +37,8 @@ import { TransactionComponent } from './transaction/transaction.component';
     MatFormFieldModule,
     MatProgressSpinnerModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    MatTableModule,
 
   ],
   providers: [
