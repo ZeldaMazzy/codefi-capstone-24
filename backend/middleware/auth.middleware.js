@@ -12,7 +12,7 @@ const authenticationMiddleware = async (req, res, next) => {
             rawJWT,
             process.env.SECRET_KEY
         );
-        req.email = decodedJWT.email;
+        req.userId = decodedJWT.userId;
 
         next();
     } catch (e) {

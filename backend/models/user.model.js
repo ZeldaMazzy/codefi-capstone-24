@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken')
 
@@ -10,7 +11,7 @@ const userSchema = new mongoose.Schema({
     },
     lastName: {
         type: String,
-        require: [true, 'Provide a Last Name'],
+        required: [true, 'Provide a Last Name'],
         maxlenth: 30
     },
     email: {
@@ -42,7 +43,7 @@ userSchema.methods.createToken = function () {
         {
             userId: this._id, firstName: this.firstName, lastName: this.lastName, email: this.email, role: this.role
         },
-        process.env.JWT_SECRET,
+        process.env.SECRET_KEY,
         { expiresIn: '1d' },
     );
 };

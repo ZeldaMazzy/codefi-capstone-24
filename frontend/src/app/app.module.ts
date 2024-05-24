@@ -11,7 +11,11 @@ import { AccountsComponent } from './accounts/accounts.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { AuthInterceptor } from './auth/auth-interceptor';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { FormsModule } from '@angular/forms';=
+import { TransactionComponent } from './transaction/transaction.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +32,11 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
     MatToolbarModule,
     MatCardModule,
     BrowserAnimationsModule,
+    MatFormFieldModule,
+    MatProgressSpinnerModule,
+    FormsModule,
+    HttpClientModule
+
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}

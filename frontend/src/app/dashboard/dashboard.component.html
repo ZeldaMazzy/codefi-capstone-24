@@ -1,15 +1,10 @@
-<mat-card layout='row' class="info" style="margin-top:4.6rem;">
-  <mat-card-title-group>
+<div class="row">
       <mat-card-title class="avatar-title">Hello, {{user?.firstName}}</mat-card-title>
-  </mat-card-title-group>
-  <mat-card-content class="quick-info">You are signed in as: <br> {{user?.firstName}} {{user?.lastName}}
-      <mat-divider class="divider" vertical="true" vertical style="height:60px"></mat-divider>
-  </mat-card-content>
-  <mat-card-content class="quick-info">Your account number: <br> {{user.accountNumber}}
-      <mat-divider class="divider" vertical="true" vertical style="height:60px"></mat-divider>
-  </mat-card-content>
-  <mat-divider class="block-divider"></mat-divider>
-  <mat-card class="transaction-box">
+    <!-- <mat-card-content class="mat-body-1 info-text flex">Your client number: <br> 000000000{{user.clientNumber}} -->
+    <!-- </mat-card-content> -->
+    <br><br><br>
+  
+    <!-- <mat-card class="transaction-box">
       <mat-card-header>
           <div mat-card-avatar class="grid-card-header-image">
               <mat-icon class="icon">swap_horiz</mat-icon>
@@ -100,3 +95,8 @@
           <mat-progress-bar class="limit-bar" mode="determinate" value="{{100*(user.usedLimit / user.limitMonthly)}}">
           </mat-progress-bar>
       </mat-card-content>
+      <mat-card-actions class="current-balance-btn">
+      </mat-card-actions>
+    </mat-card>
+ -->
+</div>
