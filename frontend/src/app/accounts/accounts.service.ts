@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Account } from './accounts.model';
-import { EMPTY, Observable, findIndex, of } from 'rxjs';
-import { TEST_DATA_ACCOUNTDATA } from '../stub/account.stub';
+import { Observable, map } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 
 @Injectable({
@@ -9,37 +10,31 @@ import { TEST_DATA_ACCOUNTDATA } from '../stub/account.stub';
 })
 
 export class AccountsService {
-  constructor() { }
+  constructor(private http: HttpClient, private router: Router) { }
+
+  private endpoint: string = "http://localhost:2077/api/v1/accounts/"
 
   getAccounts(): Observable<Account[]> {
-    return of(TEST_DATA_ACCOUNTDATA)
+    return this.http.get<any>(this.endpoint)
+      .pipe(map(r => r.data))
   }
 
-  getAccountById(AccountID: string): Observable<Account| null> {
-    const account: Account | undefined = TEST_DATA_ACCOUNTDATA.find((account: Account) => {
-      return account._id == AccountID;
-    })
-    return of(account || null);
+  getAccountById(AccountID: string): Observable<Account | null> {
+    return this.http.get<any | null>(this.endpoint + AccountID)
+      .pipe(map(r => r.data))
   }
 
   updateAccount(accountToChange: Account): Observable<Account> {
-    const accountIndex: number = TEST_DATA_ACCOUNTDATA.findIndex((account: Account) => {
-      return account._id === accountToChange._id;
-    })
-    TEST_DATA_ACCOUNTDATA[accountIndex] = accountToChange;
-    return of(accountToChange);
+    return this.http.put<any>(this.endpoint + accountToChange._id, accountToChange)
+      .pipe(map(r => r.data))
   }
 
   addAccount(addAccount: Account): Observable<Account> {
-    TEST_DATA_ACCOUNTDATA.push();
-    return of(addAccount)
+    return this.http.post<any>(this.endpoint, addAccount)
+      .pipe(map(r => r.data))
   }
 
   deleteAccount(deleteAccount: Account): Observable<void> {
-    const accountIndex: number = TEST_DATA_ACCOUNTDATA.findIndex((account: Account) => {
-      return account._id === deleteAccount._id;
-    })
-    TEST_DATA_ACCOUNTDATA.splice(accountIndex);
-    return EMPTY;
+    return this.http.delete<void>(this.endpoint + deleteAccount._id)
   }
 }
