@@ -6,3 +6,8 @@ export class Transaction {
     account: Account = new Account();
 
 };
+
+export class SimpleTransaction {
+    createdAt: Date = new Date();
+    amount: number = 0;
+}

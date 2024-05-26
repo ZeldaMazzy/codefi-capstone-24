@@ -62,15 +62,19 @@ export class AuthService {
 
   registerUser(email: string, password: string, firstName: string, lastName: string) {
     const authData: CreateUser = { firstName: firstName, lastName: lastName, email: email, password: password };
-    return this.http.post('http://localhost:3000/api/user/signup', authData)
-  }
+    return this.http.post('http://localhost:2077/api/v1/register', authData)
+    .pipe(tap((resp) => {
+      this.router.navigateByUrl('/login');
+  }))};
 
   loginUser(email: string, password: string) {
     const authData: LoginData = { email: email, password: password };
-    return this.http.post('http://jsonplaceholder.typicode.com/posts', authData)
+    return this.http.post('http://localhost:2077/api/v1/login', authData)
       .pipe(tap((resp: any) => {
-        this.token = resp.token;
-        this.User.next(resp.user);
+        localStorage.setItem('token', resp.return.token);
+        this.token = resp.return.token;
+        this.User.next(resp.return);
+        this.router.navigateByUrl('/dashboard');
       }))};
 
   logout() {

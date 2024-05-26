@@ -49,6 +49,7 @@ const addAccount = async (req, res) => {
     try {
         const payload = {
             ...req.body,
+            accountBalance: 0,
             user: req.userId
         }
         newAccount = await Account.create(payload)

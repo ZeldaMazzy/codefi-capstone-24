@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const cors = require('cors');
 require("dotenv").config();
 
 //server config
@@ -8,6 +9,8 @@ const SERVER_URL = `http://localhost:${PORT}`;
 const connectToDB = require('./db/mongoose');
 
 //middleware
+const corsOptions = { origin: "http://localhost:4200" };
+app.use(cors(corsOptions));
 app.use(express.json());
 const authenticationMiddleware = require("./middleware/auth.middleware");
 
