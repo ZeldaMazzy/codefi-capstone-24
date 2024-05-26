@@ -17,8 +17,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { FormsModule } from '@angular/forms';
 import { TransactionComponent } from './transaction/transaction.component';
 import { CreateAccountComponent } from './accounts/create-account/create-account.component';
-import { MatInputModule } from '@angular/material/input';
 import { ViewAccountComponent } from './accounts/view-account/view-account.component';
+import { MatInputModule } from '@angular/material/input';
 import { MatTableModule } from '@angular/material/table';
 
 @NgModule({
@@ -43,8 +43,8 @@ import { MatTableModule } from '@angular/material/table';
     MatProgressSpinnerModule,
     FormsModule,
     HttpClientModule,
-    MatTableModule
-
+    MatTableModule,
+    MatInputModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }

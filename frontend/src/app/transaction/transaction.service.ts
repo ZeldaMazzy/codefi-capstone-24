@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Transaction } from './transaction.model';
+import { SimpleTransaction, Transaction } from './transaction.model';
 import { Observable, map } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
@@ -14,7 +14,7 @@ export class TransactionService {
 
   private endpoint: string = "http://localhost:2077/api/v1/transactions"
 
-  getTransactions(accountID: string): Observable<Transaction[]> {
+  getTransactions(accountID: string): Observable<SimpleTransaction[]> {
     return this.http.get<any>(this.endpoint + '?account=' + accountID)
       .pipe(map(r => r.data))
   }
