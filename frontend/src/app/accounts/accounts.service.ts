@@ -21,7 +21,7 @@ export class AccountsService {
 
   getAccountById(AccountID: string): Observable<Account | null> {
     return this.http.get<any | null>(this.endpoint + AccountID)
-      .pipe(map(r => r.data))
+     .pipe(map(r => r.data))
   }
 
   updateAccount(accountToChange: Account): Observable<Account> {

@@ -17,6 +17,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { FormsModule } from '@angular/forms';
 import {MatTableModule} from '@angular/material/table';
 import { ViewAccountComponent } from './accounts/view-account/view-account.component';
+import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { ViewAccountComponent } from './accounts/view-account/view-account.compo
     FormsModule,
     HttpClientModule,
     MatTableModule,
+    MatInputModule,
 
   ],
   providers: [

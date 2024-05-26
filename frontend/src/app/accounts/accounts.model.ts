@@ -3,6 +3,6 @@ export class Account {
     accountNumber: string = "";
     routingNumber: string = "";
     transactions: any[] = [];
-    balance: number = 0;
+    accountBalance: number = 0;
     userId: string = "";
 };
