@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Account } from './accounts.model';
+import { Account, AddAccount } from './accounts.model';
 import { Observable, map } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
@@ -29,7 +29,7 @@ export class AccountsService {
       .pipe(map(r => r.data))
   }
 
-  addAccount(addAccount: Account): Observable<Account> {
+  addAccount(addAccount: AddAccount): Observable<Account> {
     return this.http.post<any>(this.endpoint, addAccount)
       .pipe(map(r => r.data))
   }
