@@ -1,23 +1,24 @@
-<mat-card layout='row'>
+<mat-card class="p-3 col-lg-6 col-md-12 mx-auto" layout='row'>
     <mat-card-title>Create Account</mat-card-title>
     <mat-card-content>
         <mat-spinner *ngIf="isLoading"></mat-spinner>
         <form (submit)="onCreate(accountcreateForm)" #accountcreateForm="ngForm" *ngIf="!isLoading">
             <p>
                 <mat-form-field>
-                    <input matInput ngModel #accountInput="ngModel" type="number" name="accountnumber"
+                    <input matInput ngModel #accountInput="ngModel" type="input" name="accountInput"
                         placeholder="Account Number" required maxlength="10" minlength="10">
                     <mat-error *ngIf="accountInput.invalid">Please enter a valid account number(10 digits)</mat-error>
                 </mat-form-field>
             </p>
             <p>
                 <mat-form-field>
-                    <input matInput ngModel #routingInput="ngModel" type="number" name="routingnumber"
+                    <input matInput ngModel #routingInput="ngModel" type="input" name="routingInput"
                         placeholder="Routing Number" required maxlength="8" minlength="8">
                     <mat-error *ngIf="routingInput.invalid">Please enter valid routing number(8 digits).</mat-error>
                 </mat-form-field>
             </p>
-            <div>
+
+            <div class="w-100">
                 <button class="btn btn-outline-primary" mat-raised-button color="red" type="submit" *ngIf="!isLoading"
                     [disabled]="accountcreateForm.invalid">Create Account</button>
                 <mat-spinner *ngIf="isLoading"></mat-spinner>

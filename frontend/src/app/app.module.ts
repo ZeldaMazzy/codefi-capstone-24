@@ -20,6 +20,7 @@ import { CreateAccountComponent } from './accounts/create-account/create-account
 import { ViewAccountComponent } from './accounts/view-account/view-account.component';
 import { MatInputModule } from '@angular/material/input';
 import { MatTableModule } from '@angular/material/table';
+import { AuthGuard } from './auth/auth-guard';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { MatTableModule } from '@angular/material/table';
     MatInputModule
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    AuthGuard
   ],
   bootstrap: [AppComponent]
 })

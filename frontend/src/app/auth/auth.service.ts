@@ -8,10 +8,9 @@ import { jwtDecode } from 'jwt-decode';
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   private token: string = "";
-  private readonly testuser: User = { firstName: 'Test', lastName: 'User', email: '', token: '' };
-  public User: BehaviorSubject<User | null > = new BehaviorSubject<User | null >(this.testuser);
+  public User: BehaviorSubject<User | null> = new BehaviorSubject<User | null>(null);
 
-  constructor(private http: HttpClient, private router: Router) { 
+  constructor(private http: HttpClient, private router: Router) {
     const token = localStorage.getItem('token');
     if (token !== null) {
       this.token = token;
@@ -25,7 +24,7 @@ export class AuthService {
       this.User.next(user);
     }
 
-   }
+  }
 
   getToken() {
     return this.token;
@@ -38,19 +37,19 @@ export class AuthService {
       return null;
     }
   }
-  
+
   isAuthenticated() {
-    const token = localStorage.getItem(this.token);
-    if (User !== null) {
+    const token = localStorage.getItem("token");
+    if (this.User !== null) {
       return true;
     } else if (token === null) {
       return false;
     }
     const DecodedAccessToken = this.getDecodedAccessToken(token);
-    if (Date.now() > DecodedAccessToken.exp / 1000) { 
+    if (Date.now() > DecodedAccessToken.exp / 1000) {
       localStorage.removeItem('token')
       return false;
-    } 
+    }
     return true;
 
 
@@ -63,9 +62,10 @@ export class AuthService {
   registerUser(email: string, password: string, firstName: string, lastName: string) {
     const authData: CreateUser = { firstName: firstName, lastName: lastName, email: email, password: password };
     return this.http.post('http://localhost:2077/api/v1/register', authData)
-    .pipe(tap((resp) => {
-      this.router.navigateByUrl('/login');
-  }))};
+      .pipe(tap((resp) => {
+        this.router.navigateByUrl('/login');
+      }))
+  };
 
   loginUser(email: string, password: string) {
     const authData: LoginData = { email: email, password: password };
@@ -75,12 +75,13 @@ export class AuthService {
         this.token = resp.return.token;
         this.User.next(resp.return);
         this.router.navigateByUrl('/dashboard');
-      }))};
+      }))
+  };
 
   logout() {
     this.token = "";
     this.User.next(null);
-    this.router.navigateByUrl('/');
+    this.router.navigateByUrl('/login');
   }
-  }
+}
 
