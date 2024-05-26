@@ -18,6 +18,8 @@ import { FormsModule } from '@angular/forms';
 import { TransactionComponent } from './transaction/transaction.component';
 import { CreateAccountComponent } from './accounts/create-account/create-account.component';
 import { MatInputModule } from '@angular/material/input';
+import { ViewAccountComponent } from './accounts/view-account/view-account.component';
+import { MatTableModule } from '@angular/material/table';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,8 @@ import { MatInputModule } from '@angular/material/input';
     LoginComponent,
     RegisterComponent,
     TransactionComponent,
-    CreateAccountComponent
+    CreateAccountComponent,
+    ViewAccountComponent
   ],
   imports: [
     BrowserModule,
@@ -40,7 +43,8 @@ import { MatInputModule } from '@angular/material/input';
     MatProgressSpinnerModule,
     FormsModule,
     HttpClientModule,
-    MatInputModule
+    MatTableModule
+
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }

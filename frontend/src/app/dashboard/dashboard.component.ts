@@ -2,6 +2,8 @@ import { Component, OnInit, Injectable, OnDestroy } from '@angular/core';
 import { AuthService } from '../auth/auth.service';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { User } from '../auth/auth.model';
+import { AccountsService } from '../accounts/accounts.service';
+import { Account } from '../accounts/accounts.model';
 
 
 @Component({
@@ -16,17 +18,22 @@ import { User } from '../auth/auth.model';
   ]),
   ]
 })
-@Injectable()
 export class DashboardComponent implements OnInit, OnDestroy {
   constructor(
-  private authService: AuthService){} 
+  private authService: AuthService, private accountService: AccountsService){} 
   user: User | null = null;
+  accounts: Account[] = [];
+  columnsToDisplay = ['Account', 'Balance'];
   ngOnDestroy(): void {
-    throw new Error('Method not implemented.');
+
   }
   ngOnInit(): void {
     this.authService.User.subscribe(user => {
       this.user = user;
+      this.accountService.getAccounts().subscribe(Accounts => {
+        this.accounts = Accounts;
+
+      });
       
     })
   }
@@ -55,9 +62,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.userSub = this.dashService.getUserDataListener()
       .subscribe((
         userData: {
-           name: string,
-           surname: string, 
-           clientNumber: number,  
+           firstName: string,
+           lastNname: string, 
+           accountNumber: number,  
            balance: number, 
            transactions: {trans: [] }, 
           }) => 
