@@ -30,7 +30,7 @@ export class TransactionService {
   }
   addTransaction(addTransaction: Transaction): Observable<Transaction> {
     return this.http.post<any>(this.endpoint, addTransaction)
-      .pipe(map(r => r.data))
+      .pipe(map(r => r.transaction))
   }
 
   deleteTransaction(deleteTransaction: Transaction): Observable<void> {

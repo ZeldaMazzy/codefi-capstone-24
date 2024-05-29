@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Account } from './accounts.model';
+import { Account, AddAccount } from './accounts.model';
 import { Observable, map } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
@@ -21,7 +21,7 @@ export class AccountsService {
 
   getAccountById(AccountID: string): Observable<Account | null> {
     return this.http.get<any | null>(this.endpoint + AccountID)
-     .pipe(map(r => r.data))
+      .pipe(map(r => r.data))
   }
 
   updateAccount(accountToChange: Account): Observable<Account> {
@@ -29,9 +29,10 @@ export class AccountsService {
       .pipe(map(r => r.data))
   }
 
-  addAccount(addAccount: Account): Observable<Account> {
+  addAccount(addAccount: AddAccount): Observable<Account> {
+    console.log(addAccount)
     return this.http.post<any>(this.endpoint, addAccount)
-      .pipe(map(r => r.data))
+      .pipe(map(r => r.account))
   }
 
   deleteAccount(deleteAccount: Account): Observable<void> {

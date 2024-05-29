@@ -6,3 +6,8 @@ export class Account {
     accountBalance: number = 0;
     userId: string = "";
 };
+
+export class AddAccount {
+    accountNumber: string = "";
+    routingNumber: string = "";
+}

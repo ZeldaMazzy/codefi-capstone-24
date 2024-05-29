@@ -12,12 +12,15 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { AuthInterceptor } from './auth/auth-interceptor';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { FormsModule } from '@angular/forms';
-import {MatTableModule} from '@angular/material/table';
+import { TransactionComponent } from './transaction/transaction.component';
+import { CreateAccountComponent } from './accounts/create-account/create-account.component';
 import { ViewAccountComponent } from './accounts/view-account/view-account.component';
 import { MatInputModule } from '@angular/material/input';
+import { MatTableModule } from '@angular/material/table';
+import { AuthGuard } from './auth/auth-guard';
 
 @NgModule({
   declarations: [
@@ -27,6 +30,8 @@ import { MatInputModule } from '@angular/material/input';
     AccountsComponent,
     LoginComponent,
     RegisterComponent,
+    TransactionComponent,
+    CreateAccountComponent,
     ViewAccountComponent
   ],
   imports: [
@@ -40,11 +45,11 @@ import { MatInputModule } from '@angular/material/input';
     FormsModule,
     HttpClientModule,
     MatTableModule,
-    MatInputModule,
-
+    MatInputModule
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    AuthGuard
   ],
   bootstrap: [AppComponent]
 })
