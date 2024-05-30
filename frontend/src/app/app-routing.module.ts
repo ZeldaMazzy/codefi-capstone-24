@@ -7,6 +7,7 @@ import { RegisterComponent } from './register/register.component';
 import { CreateAccountComponent } from './accounts/create-account/create-account.component';
 import { ViewAccountComponent } from './accounts/view-account/view-account.component';
 import { AuthGuard } from './auth/auth-guard';
+import { CreateTransactionComponent } from './transaction/create-transaction/create-transaction.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
@@ -15,7 +16,8 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'create-account', component: CreateAccountComponent, canActivate: [AuthGuard] },
-  { path: 'accounts/:id', component: ViewAccountComponent, canActivate: [AuthGuard] }
+  { path: 'accounts/:id', component: ViewAccountComponent, canActivate: [AuthGuard] },
+  { path: 'deposit/:id', component: CreateTransactionComponent, canActivate: [AuthGuard] }
 
 ];
 

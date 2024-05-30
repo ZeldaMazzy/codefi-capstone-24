@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { SimpleTransaction, Transaction } from './transaction.model';
+import { CreateTransaction, SimpleTransaction, Transaction } from './transaction.model';
 import { Observable, map } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
@@ -28,7 +28,7 @@ export class TransactionService {
     return this.http.put<any>(this.endpoint + '/' + transactionToChange._id, transactionToChange)
       .pipe(map(r => r.data))
   }
-  addTransaction(addTransaction: Transaction): Observable<Transaction> {
+  addTransaction(addTransaction: CreateTransaction): Observable<Transaction> {
     return this.http.post<any>(this.endpoint, addTransaction)
       .pipe(map(r => r.transaction))
   }

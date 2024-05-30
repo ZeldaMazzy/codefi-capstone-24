@@ -1,0 +1,21 @@
+<mat-card class="p-3 col-lg-6 col-md-12 mx-auto" layout='row'>
+    <mat-card-title>Deposit Money</mat-card-title>
+    <h4 style="color:Tomato">Account {{account?.accountNumber}}</h4>
+    <mat-card-content>
+        <mat-spinner *ngIf="isLoading"></mat-spinner>
+        <form (submit)="onDeposit(depositForm)" #depositForm="ngForm" *ngIf="!isLoading">
+            <p>
+                <mat-form-field>
+                    <input matInput ngModel #amountInput="ngModel" type="number" name="amountInput"
+                        placeholder="Deposit Amount" required>
+                    <mat-error *ngIf="amountInput.invalid">Please select an amount to deposit</mat-error>
+                </mat-form-field>
+            </p>
+            <div class="w-100">
+                <button class="btn btn-outline-primary" mat-raised-button color="red" type="submit" *ngIf="!isLoading"
+                    [disabled]="depositForm.invalid">Deposit Money</button>
+                <mat-spinner *ngIf="isLoading"></mat-spinner>
+            </div>
+        </form>
+    </mat-card-content>
+</mat-card>
