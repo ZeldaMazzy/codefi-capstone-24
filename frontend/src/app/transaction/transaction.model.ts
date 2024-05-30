@@ -11,3 +11,8 @@ export class SimpleTransaction {
     createdAt: Date = new Date();
     amount: number = 0;
 }
+
+export class CreateTransaction {
+    amount: number = 0;
+    account: string = "";
+}

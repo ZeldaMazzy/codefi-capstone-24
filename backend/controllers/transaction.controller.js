@@ -6,6 +6,7 @@ const getTransactions = async (req, res) => {
     try {
         const accountQuery = req.query.account.replace('/', '');
         const allTransactions = await Transaction.find({ "account": { _id: accountQuery }, "user": { _id: req.userId } })
+            .sort({ createdAt: -1 })
         res.status(200).json({ success: true, data: allTransactions })
     }
     catch (err) {

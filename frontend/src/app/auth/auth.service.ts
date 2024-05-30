@@ -8,7 +8,7 @@ import { jwtDecode } from 'jwt-decode';
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   private token: string = "";
-  public User: BehaviorSubject<User | null> = new BehaviorSubject<User | null>(null);
+  public user: BehaviorSubject<User | null> = new BehaviorSubject<User | null>(null);
 
   constructor(private http: HttpClient, private router: Router) {
     const token = localStorage.getItem('token');
@@ -21,7 +21,7 @@ export class AuthService {
         email: DecodedAccessToken.email,
         token: token
       }
-      this.User.next(user);
+      this.user.next(user);
     }
 
   }
@@ -40,7 +40,7 @@ export class AuthService {
 
   isAuthenticated() {
     const token = localStorage.getItem("token");
-    if (this.User !== null) {
+    if (this.user.value !== null) {
       return true;
     } else if (token === null) {
       return false;
@@ -56,7 +56,7 @@ export class AuthService {
 
   }
   getUser() {
-    return this.User.value;
+    return this.user.value;
   }
 
   registerUser(email: string, password: string, firstName: string, lastName: string) {
@@ -73,14 +73,15 @@ export class AuthService {
       .pipe(tap((resp: any) => {
         localStorage.setItem('token', resp.return.token);
         this.token = resp.return.token;
-        this.User.next(resp.return);
+        this.user.next(resp.return);
         this.router.navigateByUrl('/dashboard');
       }))
   };
 
   logout() {
     this.token = "";
-    this.User.next(null);
+    localStorage.removeItem('token')
+    this.user.next(null);
     this.router.navigateByUrl('/login');
   }
 }

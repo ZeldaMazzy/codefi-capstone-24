@@ -21,6 +21,7 @@ import { ViewAccountComponent } from './accounts/view-account/view-account.compo
 import { MatInputModule } from '@angular/material/input';
 import { MatTableModule } from '@angular/material/table';
 import { AuthGuard } from './auth/auth-guard';
+import { CreateTransactionComponent } from './transaction/create-transaction/create-transaction.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { AuthGuard } from './auth/auth-guard';
     RegisterComponent,
     TransactionComponent,
     CreateAccountComponent,
-    ViewAccountComponent
+    ViewAccountComponent,
+    CreateTransactionComponent
   ],
   imports: [
     BrowserModule,

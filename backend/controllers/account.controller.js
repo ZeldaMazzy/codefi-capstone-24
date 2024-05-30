@@ -1,9 +1,48 @@
 const Account = require('../models/account.model')
+const Transaction = require('../models/transaction.model')
 const mongoose = require('mongoose')
 
 const getAccounts = async (req, res) => {
     try {
-        const allAccounts = await Account.find({ user: req.userId })
+        const aggregate = [
+            {
+                $lookup: {
+                    from: 'transactions',
+                    localField: '_id',
+                    foreignField: 'account',
+                    as: 'transactionDetails'
+                }
+            },
+
+            {
+                $unwind: {
+                    path: '$transactionDetails',
+                    preserveNullAndEmptyArrays: true
+                },
+
+            },
+
+            { $match: { user: new mongoose.Types.ObjectId(req.userId) } },
+
+            {
+                $group: {
+                    _id: '$_id',
+                    accountBalance: { $sum: '$transactionDetails.amount' },
+                    routingNumber: { $first: '$routingNumber' },
+                    accountNumber: { $first: '$accountNumber' }
+                }
+            },
+
+            {
+                $project: {
+                    _id: 1,
+                    accountBalance: 1,
+                    routingNumber: 1,
+                    accountNumber: 1
+                }
+            }
+        ]
+        const allAccounts = await Account.aggregate(aggregate).exec()
         res.status(200).json({ success: true, data: allAccounts })
     }
     catch (e) {
